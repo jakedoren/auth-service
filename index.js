@@ -18,7 +18,7 @@ mongoose.connect(process.env.MDB_CONNECT, { useNewUrlParser: true, useUnifiedTop
 })
 
 app.use('/auth', require('./routers/useRouter'))
-
+app.use('/note', require('./routers/noteRouter'))
 
 app.listen(PORT, () => {
     console.log(`server is listening on ${PORT}`)
