@@ -8,6 +8,8 @@ router.post('/', async (req, res) => {
     try {
         const { email, password, passwordVerify } = req.body;
 
+        console.log(req.body)
+
     // Validation
     if(!email || !password || !passwordVerify)
         return res.status(400).json({errorMessage: "Please enter in all required fields"})
