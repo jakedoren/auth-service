@@ -5,7 +5,6 @@ const auth = require('../middleware/auth')
 router.post('/', auth, async (req, res) => {
     try {
         const { title, body } = req.body;
-        console.log(req.body)
 
         const newNote = new Note({
             title: title,
