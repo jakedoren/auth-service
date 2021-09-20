@@ -35,7 +35,6 @@ exports.loginValidator = async (req, res, next) => {
 exports.loggedInValidator = async (req, res, next) => {
     try {
         const token = req.cookies.token;
-        console.log(token)
         if(!token) return res.json(false);
         jwt.verify(token, process.env.JWT_SECRET)
         next()
