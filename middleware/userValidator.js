@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 exports.registerValidator = async (req, res, next) => {
     try {
@@ -28,5 +29,17 @@ exports.loginValidator = async (req, res, next) => {
     } catch(err) {
         console.log(err)
         return res.status(500).json({ errorMessage: "Internal server error" })
+    }
+}
+
+exports.loggedInValidator = async (req, res, next) => {
+    try {
+        const token = req.cookies.token;
+        console.log(token)
+        if(!token) return res.json(false);
+        jwt.verify(token, process.env.JWT_SECRET)
+        next()
+    } catch(err) {
+        res.json(false);
     }
 }

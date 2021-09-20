@@ -20,3 +20,4 @@ exports.registerUser = async (userInfo) => {
 exports.loginUser = async (userInfo) => {
     return jwt.sign({ user: userInfo._id }, process.env.JWT_SECRET)
 }
+
