@@ -17,5 +17,4 @@ router.get("/logout", (req, res) => {
 // Determine if logged in
 router.get('/loggedin', loggedInValidator, userController.getLoggedIn)
 
-
 module.exports = router;

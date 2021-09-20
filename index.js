@@ -3,7 +3,6 @@ const app = express();
 const PORT = 8080 || process.env.PORT;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 dotenv.config();
@@ -11,10 +10,7 @@ dotenv.config();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: ["http://localhost:3000"],
-    credentials: true
-}));
+app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
 
 mongoose.connect(process.env.MDB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if(err) {
