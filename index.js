@@ -24,7 +24,7 @@ mongoose.connect(process.env.MDB_CONNECT, { useNewUrlParser: true, useUnifiedTop
     }
 });
 
-app.use('/auth', require('./routers/useRouter'))
+app.use('/auth', require('./routers/userRouter'))
 app.use('/note', require('./routers/noteRouter'))
 
 app.listen(PORT, () => {
