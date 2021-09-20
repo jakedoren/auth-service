@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const bcrypt = require('bcryptjs')
 
 exports.registerValidator = async (req, res, next) => {
     try {
@@ -11,6 +12,21 @@ exports.registerValidator = async (req, res, next) => {
         if(existingUser) return res.status(400).json({ errorMessage: "An account with this email already exists" })
         next()
     } catch(err) {
+        return res.status(500).json({ errorMessage: "Internal server error" })
+    }
+}
+
+exports.loginValidator = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        if(!email || !password) return res.status(400).json({ errorMessage: "Please enter in all required fields" })
+        const existingUser = await User.findOne({ email: email })
+        if(!existingUser) return res.status(401).json({ errorMessage: "Wrong email or password" })
+        const passwordCorrect = await bcrypt.compare(password, existingUser.passwordHash)
+        if(!passwordCorrect) return res.status(401).json({ errorMessage: "Wrong email or password" })
+        next()
+    } catch(err) {
+        console.log(err)
         return res.status(500).json({ errorMessage: "Internal server error" })
     }
 }
