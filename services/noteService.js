@@ -10,3 +10,7 @@ exports.createNote = async (noteInfo, user) => {
     })
     return await newNote.save()
 }
+
+exports.getNotes = async (user) => {
+    return await Note.find({ createdBy: user})
+}
