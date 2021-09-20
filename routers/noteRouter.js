@@ -1,27 +1,10 @@
-const Note = require('../models/Note');
-const router = require('express').Router();
+const Note = require('../models/Note')
+const router = require('express').Router()
 const auth = require('../middleware/auth')
+const { createNoteValidator } = require('../middleware/noteValidator')
+const noteController = require('../controllers/noteController')
 
-router.post('/', auth, async (req, res) => {
-    try {
-        const { title, body } = req.body;
-
-        const newNote = new Note({
-            title: title,
-            body: body,
-            dateCreated: new Date().toLocaleDateString(),
-            createdBy: req.user
-        })
-
-        const savedNote = await newNote.save();
-
-        res.json(`The following note sucessfully created: ${savedNote}`)
-
-    } catch(err) {
-        console.error(err)
-        res.status(500).send();
-    }
-});
+router.post('/', auth, createNoteValidator, noteController.createNote)
 
 router.get('/', auth, async (req, res) => {
     try {
